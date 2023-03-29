@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 
+from django.urls import reverse
+
 
 class CategoryCourse(models.Model):
 
@@ -15,6 +17,9 @@ class CategoryCourse(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse('course-list')
 
 
 class Course(models.Model):
@@ -30,6 +35,15 @@ class Course(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    def get_image(self):
+        if not self.image:
+            return 'https://cdn.otus.ru/media/public/17/0c/170c694f1fb54b2db09edc8780ebd49a.webp'
+        return self.image
+    
+    def get_absolute_url(self):
+        return reverse('course-detail', kwargs={'slug': self.slug})
+
 
     class Meta:
         verbose_name = 'Курс'

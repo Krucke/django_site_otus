@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Обновление курса{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Обновление курса {{ object.name }}</h1>
+    <form method="POST" class="row">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary">Сохранить</button>
+    </form>
+</div>
+{% endblock %}

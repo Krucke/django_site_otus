@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}Главная{% endblock %}
+{% block title %}Список курсов{% endblock %}
 {% block content %}
 <div class="container">
-    <h1 class="text-center mb-4">Новые курсы</h1>
-    {% if courses %}
+    <h1 class="text-center mb-4">Список курсов</h1>
+    <a href="{% url 'course-create' %}" class="btn btn-primary mb-4">Добавить курс</a>
     <div class="d-flex justify-content-between">
-        {% for course in courses %}
+        {% for course in object_list %}
         <div>
             <div class="card" style="width: 18rem;">
                 <img src="{{ course.get_image }}" class="card-img-top" alt="...">
@@ -18,8 +18,5 @@
         </div>
         {% endfor %}
     </div>
-    {% else %}
-        <p>Не добавлено ни одного курса! Перейдите на страницу <a href="{% url 'course-create' %}">добавления</a></p>
-    {% endif %}
 </div>
 {% endblock %}
