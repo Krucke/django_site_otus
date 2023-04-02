@@ -4,14 +4,15 @@
 <div class="container">
     <h1 class="text-center mb-4">Новые курсы</h1>
     {% if courses %}
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between flex-wrap">
         {% for course in courses %}
         <div>
-            <div class="card" style="width: 18rem;">
+            <div class="card mb-4" style="width: 18rem;">
                 <img src="{{ course.get_image }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ course.name }}</h5>
                     <p class="card-text">{{ course.description }}</p>
+                    <p class="card-text">{{ course.category }}</p>
                     <a href="{% url 'course-detail' course.slug %}" class="btn btn-primary">Перейти</a>
                 </div>
             </div>

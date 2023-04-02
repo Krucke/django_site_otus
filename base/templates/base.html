@@ -15,7 +15,8 @@
             <div class="container p-3">
                 <a href="/" class="me-3">Главная</a>
                 <a href="{% url 'course-list' %}" class="me-3">Курсы</a>
-                <a href="{% url 'about' %}">О нас</a>
+                <a href="{% url 'about' %}" class="me-3">О нас</a>
+                <a href="{% url 'users' %}" class="me-3">Пользователи</a>
             </div>
         </header>
         {% block content %}

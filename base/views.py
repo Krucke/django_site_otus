@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 
-from base.models import Course, CategoryCourse
+from base.models import Course, CategoryCourse, MyUser
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
@@ -14,7 +14,20 @@ class Home(TemplateView):
     def get(self, request, *args, **kwargs):
 
         context = self.get_context_data(**kwargs)
-        context['courses'] = Course.objects.all()
+        courses = Course.objects.all().select_related('category')
+        context['courses'] = courses
+        return self.render_to_response(context)
+    
+
+class UserView(TemplateView):
+
+    template_name = 'user_view.html'
+
+    def get(self, request, *args, **kwargs):
+
+        context = self.get_context_data(**kwargs)
+        users = MyUser.objects.filter(is_superuser=False).prefetch_related('courses')
+        context['users'] = users
         return self.render_to_response(context)
     
 
@@ -29,6 +42,9 @@ class CourseListView(ListView):
 
     model = Course
     template_name = 'course_list.html'
+
+    def get_queryset(self):
+        return Course.objects.all().select_related('category')
 
 
 class CourseDetailView(DetailView):
